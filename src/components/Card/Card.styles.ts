@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { createCSSVariableGenerator, cssVariable } from 'themthem';
 
 export interface GamesCardProps {
   background: string | undefined;
 }
+
+const generateCardCSSVariables = createCSSVariableGenerator('Card');
+
+const cardVariables = generateCardCSSVariables({
+  'background-color': cssVariable('global', 'tokens', 'background-top'),
+});
 
 export const CardRoot = styled.div.attrs<GamesCardProps>((props) => {
   return {
@@ -12,10 +18,12 @@ export const CardRoot = styled.div.attrs<GamesCardProps>((props) => {
     },
   };
 })<GamesCardProps>`
+  ${cardVariables}
+
   position: relative;
   background-size: cover;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: ${cssVariable('component', 'Card', 'background-color')};
   background-position: center;
   overflow: hidden;
 
