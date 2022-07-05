@@ -6,18 +6,48 @@ const globalVariables = generateGlobalCSSVariables({
     black: '#000',
     white: '#fff',
     gainsboro: '#dfe3e6',
+    'rich-black': '#0b161f',
+    gunmetal: '#172530',
+  },
+});
+
+const lightColors = generateGlobalCSSVariables({
+  tokens: {
+    'background-base': cssVariable('global', 'colors', 'gainsboro'),
+    'background-top': cssVariable('global', 'colors', 'white'),
+    'background-inverse': cssVariable('global', 'colors', 'rich-black'),
+    'color-main': cssVariable('global', 'colors', 'black'),
+    'color-inverse': cssVariable('global', 'colors', 'white'),
+  },
+});
+
+const darkColors = generateGlobalCSSVariables({
+  tokens: {
+    'background-base': cssVariable('global', 'colors', 'rich-black'),
+    'background-top': cssVariable('global', 'colors', 'gunmetal'),
+    'background-inverse': cssVariable('global', 'colors', 'white'),
+    'color-main': cssVariable('global', 'colors', 'white'),
+    'color-inverse': cssVariable('global', 'colors', 'black'),
   },
 });
 
 export const AppGlobalStyle = createGlobalStyle`
   :root {
     ${globalVariables}
+    ${darkColors}
+  }
+
+  @media(prefers-color-scheme: light) {
+    :root {
+      ${lightColors}
+    }
   }
 
   body {
     margin: 0;
     min-height: 100vh;
     font-family: Montserrat, sans-serif;
+    color: ${cssVariable('global', 'tokens', 'color-main')};
   }
 
   * {
@@ -40,5 +70,5 @@ export const AppRoot = styled.div`
   grid-template-areas: 'header' 'body' 'footer';
   grid-template-rows: 60px 1fr auto;
   gap: 24px;
-  background-color: ${cssVariable('global', 'colors', 'gainsboro')};
+  background-color: ${cssVariable('global', 'tokens', 'background-base')};
 `;
