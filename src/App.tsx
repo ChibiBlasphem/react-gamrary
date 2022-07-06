@@ -33,7 +33,10 @@ export function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Page layout={DefaultLayout} component={Dumb} />} />
-            <Route path="/games" element={<Page layout={DefaultLayout} component={Games} />} />
+            <Route
+              path="/games"
+              element={<Page layout={DefaultLayout} component={Games} />}
+            ></Route>
             <Route path="/games/:id" element={<Page layout={DefaultLayout} component={Game} />} />
             <Route path="/genres" element={<Page layout={DefaultLayout} component={Genres} />} />
           </Routes>
