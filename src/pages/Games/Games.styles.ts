@@ -10,3 +10,10 @@ export const GamesGrid = styled.div`
 export const GamesCard = styled(Card)`
   aspect-ratio: 6 / 8;
 `;
+
+export const FetchingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+`;

@@ -1,10 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Page } from '@/components/Page/Page';
 import { DefaultLayout } from '@/layouts/DefaultLayout/DefaultLayout';
 import { AppGlobalStyle, AppRoot } from './App.styles';
 import { Games } from './pages/Games/Games';
 import { Genres } from './pages/Genres/Genres';
 import { Game } from './pages/Game/Game';
+
+const queryClient = new QueryClient();
 
 const Dumb = () => {
   return (
@@ -17,7 +21,7 @@ const Dumb = () => {
 
 export function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <AppGlobalStyle />
       <AppRoot>
         <BrowserRouter>
@@ -29,6 +33,7 @@ export function App() {
           </Routes>
         </BrowserRouter>
       </AppRoot>
-    </>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
