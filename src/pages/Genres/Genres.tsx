@@ -1,27 +1,23 @@
-import { useEffect, useState } from 'react';
-import { fetch } from '@/utils/fetch';
-import type { definitions } from '@/generated/rawg-types';
+import { useGenres } from '@/queries/genres';
 import { ColumnContainer } from '@/styled/ColumnContainer';
 import { GenresCard, GenresGrid } from './Genres.styles';
 
 export function Genres() {
-  const [genres, setGenres] = useState<definitions['Genre'][] | undefined>();
+  const { isLoading, isError, isIdle, error, data } = useGenres();
 
-  useEffect(() => {
-    fetch('/genres', { query: {} }).then((genres) => {
-      setGenres(genres.results);
-    });
-  }, []);
-
-  if (!genres) {
+  if (isIdle || isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
   }
 
   return (
     <ColumnContainer>
       <h1>Genres</h1>
       <GenresGrid>
-        {genres.map((genre) => (
+        {data.results.map((genre) => (
           <GenresCard key={genre.slug} background={genre.image_background}>
             {genre.name}
           </GenresCard>

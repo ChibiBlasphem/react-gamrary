@@ -1,68 +1,21 @@
-import { useEffect, useState } from 'react';
-import { fetch, QueryResult } from '@/utils/fetch';
 import { Link, useParams } from 'react-router-dom';
 import { GameDescription, GameGamesGrid, GameGamesCard, GameHero, GameRoot } from './Game.styles';
 import { ImageGallery } from '@/components/ImageGallery/ImageGallery';
+import { useGame } from '@/queries/game';
 
 export function Game() {
   const { id: gameId } = useParams();
-  const [game, setGame] = useState<QueryResult<'/games/{id}'>>();
-  const [screenshots, setScreenshots] =
-    useState<QueryResult<'/games/{game_pk}/screenshots'>['results']>();
-  const [gameSeries, setGameSeries] =
-    useState<QueryResult<'/games/{game_pk}/game-series'>['results']>();
-  const [dlcs, setDlcs] = useState<QueryResult<'/games/{game_pk}/additions'>['results']>();
-  const [parents, setParents] = useState<QueryResult<'/games/{game_pk}/parent-games'>['results']>();
+  const [gameResult, screensResult, dlcsResults, parentsResult, seriesResult] = useGame(gameId!);
 
-  useEffect(() => {
-    if (!gameId) {
-      return;
-    }
-
-    fetch('/games/{id}', {
-      params: {
-        id: gameId,
-      },
-    }).then((gameResult) => {
-      setGame(gameResult);
-    });
-
-    fetch('/games/{game_pk}/screenshots', {
-      params: {
-        game_pk: gameId,
-      },
-    }).then((screenshotResult) => {
-      setScreenshots(screenshotResult.results);
-    });
-
-    fetch('/games/{game_pk}/game-series', {
-      params: {
-        game_pk: gameId,
-      },
-    }).then((gameSeriesResult) => {
-      setGameSeries(gameSeriesResult.results);
-    });
-
-    fetch('/games/{game_pk}/additions', {
-      params: {
-        game_pk: gameId,
-      },
-    }).then((dlcsResult) => {
-      setDlcs(dlcsResult.results);
-    });
-
-    fetch('/games/{game_pk}/parent-games', {
-      params: {
-        game_pk: gameId,
-      },
-    }).then((parentResult) => {
-      setParents(parentResult.results);
-    });
-  }, [gameId]);
-
-  if (!game) {
+  if (gameResult.isIdle || gameResult.isLoading) {
     return <div>Loading...</div>;
   }
+
+  if (gameResult.isError) {
+    return <span>Error: {(gameResult.error as Error).message}</span>;
+  }
+
+  const game = gameResult.data;
 
   return (
     <GameRoot>
@@ -98,17 +51,17 @@ export function Game() {
           </>
         )}
       </div>
-      {screenshots && (
+      {screensResult.isSuccess && (
         <div>
           <h2>Screenshots</h2>
-          <ImageGallery images={screenshots} />
+          <ImageGallery images={screensResult.data.results} />
         </div>
       )}
-      {gameSeries && gameSeries.length > 0 && (
+      {seriesResult.isSuccess && seriesResult.data.results.length > 0 && (
         <div>
           <h2>Of the same serie</h2>
           <GameGamesGrid>
-            {gameSeries.map((game) => (
+            {seriesResult.data.results.map((game) => (
               <GameGamesCard key={game.slug} background={game.background_image}>
                 <Link to={`/games/${game.slug}`}>{game.name}</Link>
               </GameGamesCard>
@@ -116,11 +69,11 @@ export function Game() {
           </GameGamesGrid>
         </div>
       )}
-      {dlcs && dlcs.length > 0 && (
+      {dlcsResults.isSuccess && dlcsResults.data.results.length > 0 && (
         <div>
           <h2>DLCs</h2>
           <GameGamesGrid>
-            {dlcs.map((dlc) => (
+            {dlcsResults.data.results.map((dlc) => (
               <GameGamesCard key={dlc.slug} background={dlc.background_image}>
                 <Link to={`/games/${dlc.slug}`}>{dlc.name}</Link>
               </GameGamesCard>
@@ -128,11 +81,11 @@ export function Game() {
           </GameGamesGrid>
         </div>
       )}
-      {parents && parents.length > 0 && (
+      {parentsResult.isSuccess && parentsResult.data.results.length > 0 && (
         <div>
           <h2>Related</h2>
           <GameGamesGrid>
-            {parents.map((parent) => (
+            {parentsResult.data.results.map((parent) => (
               <GameGamesCard key={parent.slug} background={parent.background_image}>
                 <Link to={`/games/${parent.slug}`}>{parent.name}</Link>
               </GameGamesCard>
