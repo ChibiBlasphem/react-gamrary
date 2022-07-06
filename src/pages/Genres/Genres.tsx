@@ -1,5 +1,6 @@
 import { useGenres } from '@/queries/genres';
 import { ColumnContainer } from '@/styled/ColumnContainer';
+import { Link } from 'react-router-dom';
 import { GenresCard, GenresGrid } from './Genres.styles';
 
 export function Genres() {
@@ -19,7 +20,7 @@ export function Genres() {
       <GenresGrid>
         {data.results.map((genre) => (
           <GenresCard key={genre.slug} background={genre.image_background}>
-            {genre.name}
+            <Link to={`/games?genres=${genre.slug}`}>{genre.name}</Link>
           </GenresCard>
         ))}
       </GenresGrid>

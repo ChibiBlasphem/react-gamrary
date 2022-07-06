@@ -9,10 +9,12 @@ const GAMES_PER_PAGE = 30;
 export function Games() {
   const [searchParams, setSearchParams] = useSearchParams({ page: '1' });
   const currentPage = parseInt(searchParams.get('page') ?? '1');
+  const genres = searchParams.get('genres') ?? null;
   const { isLoading, isFetching, isIdle, isError, data, error } = useGames({
     query: {
       page: currentPage,
       page_size: GAMES_PER_PAGE,
+      ...(genres ? { genres } : {}),
     },
   });
 
