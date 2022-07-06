@@ -8,7 +8,13 @@ import { Games } from './pages/Games/Games';
 import { Genres } from './pages/Genres/Genres';
 import { Game } from './pages/Game/Game';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+    },
+  },
+});
 
 const Dumb = () => {
   return (
