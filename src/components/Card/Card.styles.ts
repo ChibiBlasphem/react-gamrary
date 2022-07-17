@@ -1,11 +1,11 @@
 import styled, { keyframes } from 'styled-components';
-import { createCSSVariableGenerator, cssVariable } from 'themthem';
+import { createCSSVariablesGenerator, cssVariable } from 'themthem';
 
 export interface GamesCardBackgroundProps {
   background: string | undefined;
 }
 
-const generateCardCSSVariables = createCSSVariableGenerator('Card');
+const generateCardCSSVariables = createCSSVariablesGenerator('Card');
 
 const cardVariables = generateCardCSSVariables({
   'background-color': cssVariable('global', 'colors', 'rich-black'),

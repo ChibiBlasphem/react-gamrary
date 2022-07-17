@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { createCSSVariableGenerator, cssVariable } from 'themthem';
+import { createCSSVariablesGenerator, cssVariable } from 'themthem';
 
-const generatePaginationCSSVariables = createCSSVariableGenerator('Pagination');
+const generatePaginationCSSVariables = createCSSVariablesGenerator('Pagination');
 
 const paginationVariables = generatePaginationCSSVariables({
   'background-active': cssVariable('global', 'tokens', 'background-inverse'),
