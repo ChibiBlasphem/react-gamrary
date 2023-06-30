@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
-import { createCSSVariablesGenerator, cssVariable } from 'themthem';
+import { createGenerator, cVar } from 'themthem/component';
+import { gVar } from 'themthem/global';
 
-const generatePaginationCSSVariables = createCSSVariablesGenerator('Pagination');
+const generatePaginationCSSVariables = createGenerator('Pagination');
 
 const paginationVariables = generatePaginationCSSVariables({
-  'background-active': cssVariable('global', 'tokens', 'background-inverse'),
-  'background-hover': cssVariable('global', 'tokens', 'background-top'),
-  'color-active': cssVariable('global', 'tokens', 'color-inverse'),
-  color: cssVariable('global', 'tokens', 'color-main'),
+  'background-active': gVar('tokens.background-inverse'),
+  'background-hover': gVar('tokens.background-top'),
+  'color-active': gVar('tokens.color-inverse'),
+  color: gVar('tokens.color-main'),
 });
 
 export const PaginationRoot = styled.nav`
@@ -31,13 +32,13 @@ export const PaginationLink = styled.div<PaginationLinkProps>`
     ${(props) =>
       props.selected
         ? css`
-            background-color: ${cssVariable('component', 'Pagination', 'background-active')};
-            color: ${cssVariable('component', 'Pagination', 'color-active')};
+            background-color: ${cVar('Pagination.background-active')};
+            color: ${cVar('Pagination.color-active')};
             transition: background-color 0.3s ease;
           `
         : css`
             &:hover {
-              background-color: ${cssVariable('component', 'Pagination', 'background-hover')};
+              background-color: ${cVar('Pagination.background-hover')};
             }
           `}
   }

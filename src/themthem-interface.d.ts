@@ -1,12 +1,14 @@
 /// <reference types="themthem/interfaces" />
 
 interface GlobalDesignTokenBox {
-  colors: ['black', 'white', 'gainsboro', 'rich-black', 'gunmetal'];
-  tokens: [
-    'background-base',
-    'background-top',
-    'background-inverse',
-    'color-main',
-    'color-inverse',
-  ];
+  colors: { $values: ['red', 'black', 'white', 'gainsboro', 'rich-black', 'gunmetal'] };
+  tokens: {
+    $values: [
+      'background-base',
+      'background-top',
+      'background-inverse',
+      'color-main',
+      'color-inverse',
+    ];
+  };
 }
