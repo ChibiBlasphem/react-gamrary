@@ -19,7 +19,7 @@
     "react-query": "^3.39.1",
     "react-router-dom": "^6.3.0",
     "styled-components": "^5.3.5",
-    "themthem": "^0.2.0"
+    "themthem": "0.3.0-alpha.16"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

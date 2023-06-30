@@ -1,16 +1,17 @@
 import styled from 'styled-components';
-import { createCSSVariablesGenerator, cssVariable } from 'themthem';
+import { createGenerator, cVar } from 'themthem/component';
+import { gVar } from 'themthem/global';
 import { Box } from '../../styled/Box';
 
-const generateHeaderCSSVariables = createCSSVariablesGenerator('Header');
+const generateHeaderCSSVariables = createGenerator('Header');
 
-const headerVariables = generateHeaderCSSVariables({
-  'background-color': cssVariable('global', 'tokens', 'background-top'),
+export const headerVariables = generateHeaderCSSVariables({
+  'background-color': gVar('tokens.background-top'),
 });
 
 export const HeaderRoot = styled.header`
   ${headerVariables}
-  background-color: ${cssVariable('component', 'Header', 'background-color')};
+  background-color: ${cVar('Header.background-color')};
 `;
 
 export const HeaderNav = styled(Box)`

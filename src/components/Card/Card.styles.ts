@@ -1,14 +1,15 @@
 import styled, { keyframes } from 'styled-components';
-import { createCSSVariablesGenerator, cssVariable } from 'themthem';
+import { createGenerator, cVar } from 'themthem/component';
+import { gVar } from 'themthem/global';
 
 export interface GamesCardBackgroundProps {
   background: string | undefined;
 }
 
-const generateCardCSSVariables = createCSSVariablesGenerator('Card');
+const generateCardCSSVariables = createGenerator('Card');
 
 const cardVariables = generateCardCSSVariables({
-  'background-color': cssVariable('global', 'colors', 'rich-black'),
+  'background-color': gVar('colors.rich-black'),
 });
 
 const backgroundAnimation = keyframes`
@@ -43,7 +44,7 @@ export const CardRoot = styled.div`
 
   position: relative;
   border-radius: 4px;
-  background-color: ${cssVariable('component', 'Card', 'background-color')};
+  background-color: ${cVar('Card.background-color')};
   overflow: hidden;
 
   .overlay {

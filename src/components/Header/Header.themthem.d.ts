@@ -1,5 +1,5 @@
 /// <reference types="themthem/interfaces" />
 
 interface ComponentDesignTokenBox {
-  Header: ['background-color'];
+  Header: { $values: ['background-color'] };
 }

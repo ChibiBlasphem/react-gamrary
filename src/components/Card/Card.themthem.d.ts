@@ -1,3 +1,3 @@
 interface ComponentDesignTokenBox {
-  Card: ['background-color'];
+  Card: { $values: ['background-color'] };
 }

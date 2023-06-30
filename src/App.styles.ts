@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { cssVariable, generateGlobalCSSVariables } from 'themthem';
+import { gVar, generateVars } from 'themthem/global';
 
-const globalVariables = generateGlobalCSSVariables({
+const globalVariables = generateVars({
   colors: {
     black: '#000',
     white: '#fff',
@@ -11,23 +11,23 @@ const globalVariables = generateGlobalCSSVariables({
   },
 });
 
-const lightColors = generateGlobalCSSVariables({
+const lightColors = generateVars({
   tokens: {
-    'background-base': cssVariable('global', 'colors', 'gainsboro'),
-    'background-top': cssVariable('global', 'colors', 'white'),
-    'background-inverse': cssVariable('global', 'colors', 'rich-black'),
-    'color-main': cssVariable('global', 'colors', 'black'),
-    'color-inverse': cssVariable('global', 'colors', 'white'),
+    'background-base': gVar('colors.gainsboro'),
+    'background-top': gVar('colors.white'),
+    'background-inverse': gVar('colors.rich-black'),
+    'color-main': gVar('colors.black'),
+    'color-inverse': gVar('colors.white'),
   },
 });
 
-const darkColors = generateGlobalCSSVariables({
+const darkColors = generateVars({
   tokens: {
-    'background-base': cssVariable('global', 'colors', 'rich-black'),
-    'background-top': cssVariable('global', 'colors', 'gunmetal'),
-    'background-inverse': cssVariable('global', 'colors', 'white'),
-    'color-main': cssVariable('global', 'colors', 'white'),
-    'color-inverse': cssVariable('global', 'colors', 'black'),
+    'background-base': gVar('colors.rich-black'),
+    'background-top': gVar('colors.gunmetal'),
+    'background-inverse': gVar('colors.white'),
+    'color-main': gVar('colors.white'),
+    'color-inverse': gVar('colors.black'),
   },
 });
 
@@ -47,7 +47,7 @@ export const AppGlobalStyle = createGlobalStyle`
     margin: 0;
     min-height: 100vh;
     font-family: Montserrat, sans-serif;
-    color: ${cssVariable('global', 'tokens', 'color-main')};
+    color: ${gVar('tokens.color-main')};
   }
 
   * {
@@ -70,5 +70,5 @@ export const AppRoot = styled.div`
   grid-template-areas: 'header' 'body' 'footer';
   grid-template-rows: 60px 1fr auto;
   gap: 24px;
-  background-color: ${cssVariable('global', 'tokens', 'background-base')};
+  background-color: ${gVar('tokens.background-base')};
 `;
